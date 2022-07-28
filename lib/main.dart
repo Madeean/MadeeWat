@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:madee_wat/ui/pages/get_started_page.dart';
+
+import 'ui/pages/splash_page.dart';
 
 void main() {
   runApp(MyApp());
@@ -16,21 +19,10 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: HomePage(),
+      routes: {
+        '/': (context) => SplashPage(),
+        '/get-started': (context) => GetStartedPage(),
+      },
     );
-  }
-}
-
-class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
-
-  @override
-  State<HomePage> createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-  @override
-  Widget build(BuildContext context) {
-    return Text("Hello World");
   }
 }
