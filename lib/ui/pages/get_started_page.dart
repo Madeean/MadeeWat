@@ -57,7 +57,8 @@ class _GetStartedPageState extends State<GetStartedPage> {
                         ),
                       ),
                     ),
-                    onPressed: () => print('tapped'),
+                    onPressed: () => Navigator.pushNamedAndRemoveUntil(
+                        context, '/sign-in', (route) => false),
                     child: Text(
                       'Get Started',
                       style: whiteTextStyle.copyWith(
