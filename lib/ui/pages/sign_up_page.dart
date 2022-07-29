@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:madee_wat/shared/theme.dart';
+import 'package:madee_wat/ui/widgets/custom_textfield.dart';
+
+import '../widgets/custom_button.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({Key? key}) : super(key: key);
@@ -38,11 +41,24 @@ class _SignUpPageState extends State<SignUpPage> {
       ),
       child: Column(
         children: [
-          nameInput(),
-          emailInput(),
-          passwordInput(),
-          HobbyInput(),
-          getStartedButton(),
+          CustomTextField(title: "Full Name", hintText: "your Full name"),
+          CustomTextField(
+              title: "Email Address", hintText: "your Email Address"),
+          CustomTextField(
+            title: "Password",
+            hintText: "your Password",
+            isObscure: true,
+          ),
+          CustomTextField(title: "Hobby", hintText: "your Hobby"),
+          CustomButtom(
+            margintop: 10,
+            marginbot: 20,
+            title: "Get Started",
+            onPress: () {
+              Navigator.pushNamedAndRemoveUntil(
+                  context, '/bonus', (route) => false);
+            },
+          ),
           login(),
         ],
       ),

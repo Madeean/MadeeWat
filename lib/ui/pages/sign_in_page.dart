@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:madee_wat/ui/widgets/custom_textfield.dart';
 
 import '../../shared/theme.dart';
+import '../widgets/custom_button.dart';
 
 class SignInPage extends StatefulWidget {
   const SignInPage({Key? key}) : super(key: key);
@@ -39,9 +41,21 @@ class _SignInPageState extends State<SignInPage> {
       ),
       child: Column(
         children: [
-          emailInput(),
-          passwordInput(),
-          getStartedButton(),
+          CustomTextField(
+              title: "Email Address", hintText: "Your Email Address"),
+          CustomTextField(
+            title: "Password",
+            hintText: "Your Password",
+            isObscure: true,
+          ),
+          CustomButtom(
+            marginbot: 20,
+            title: "Get Started",
+            onPress: () {
+              Navigator.pushNamedAndRemoveUntil(
+                  context, '/bonus', (route) => false);
+            },
+          ),
           register()
         ],
       ),
@@ -196,33 +210,6 @@ class _SignInPageState extends State<SignInPage> {
             ),
           ),
         ],
-      ),
-    );
-  }
-
-  Widget getStartedButton() {
-    return Container(
-      margin: EdgeInsets.only(bottom: 20),
-      width: double.infinity,
-      height: 55,
-      child: TextButton(
-        style: TextButton.styleFrom(
-          backgroundColor: kPrimaryColor,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(
-              defaultRadius,
-            ),
-          ),
-        ),
-        onPressed: () => Navigator.pushNamedAndRemoveUntil(
-            context, '/bonus', (route) => false),
-        child: Text(
-          'Get Started',
-          style: whiteTextStyle.copyWith(
-            fontSize: 18,
-            fontWeight: medium,
-          ),
-        ),
       ),
     );
   }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:madee_wat/ui/pages/bonus_page.dart';
 import 'package:madee_wat/ui/pages/get_started_page.dart';
+import 'package:madee_wat/ui/pages/main_page.dart';
 import 'package:madee_wat/ui/pages/sign_in_page.dart';
 import 'package:madee_wat/ui/pages/sign_up_page.dart';
 
@@ -28,6 +29,7 @@ class _MyAppState extends State<MyApp> {
         '/sign-in': (context) => SignInPage(),
         '/sign-up': (context) => SignUpPage(),
         '/bonus': (context) => BonusPage(),
+        '/main': (context) => MainPage(),
       },
     );
   }

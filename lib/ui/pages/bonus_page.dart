@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:madee_wat/shared/theme.dart';
+import 'package:madee_wat/ui/widgets/custom_button.dart';
 
 class BonusPage extends StatefulWidget {
   const BonusPage({Key? key}) : super(key: key);
@@ -116,32 +117,6 @@ class _BonusPageState extends State<BonusPage> {
     );
   }
 
-  Widget startButton() {
-    return Container(
-      width: 220,
-      height: 55,
-      margin: EdgeInsets.only(top: 50),
-      child: TextButton(
-        onPressed: () {},
-        style: TextButton.styleFrom(
-          backgroundColor: kPrimaryColor,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(
-              defaultRadius,
-            ),
-          ),
-        ),
-        child: Text(
-          'Start Flight Now',
-          style: whiteTextStyle.copyWith(
-            fontSize: 18,
-            fontWeight: medium,
-          ),
-        ),
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -149,7 +124,20 @@ class _BonusPageState extends State<BonusPage> {
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [bonusCard(), title(), subtitle(), startButton()],
+          children: [
+            bonusCard(),
+            title(),
+            subtitle(),
+            CustomButtom(
+              title: "Start Flight Now",
+              width: 220,
+              margintop: 50,
+              onPress: () {
+                Navigator.pushNamedAndRemoveUntil(
+                    context, '/main', (route) => false);
+              },
+            )
+          ],
         ),
       ),
     );

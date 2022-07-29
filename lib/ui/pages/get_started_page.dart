@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:madee_wat/shared/theme.dart';
+import 'package:madee_wat/ui/widgets/custom_button.dart';
 
 class GetStartedPage extends StatefulWidget {
-  const GetStartedPage({Key? key}) : super(key: key);
-
   @override
   State<GetStartedPage> createState() => _GetStartedPageState();
 }
@@ -44,29 +43,15 @@ class _GetStartedPageState extends State<GetStartedPage> {
                   ),
                   textAlign: TextAlign.center,
                 ),
-                Container(
-                  margin: EdgeInsets.only(top: 50, bottom: 80),
+                CustomButtom(
+                  title: "Get Started",
                   width: 220,
-                  height: 55,
-                  child: TextButton(
-                    style: TextButton.styleFrom(
-                      backgroundColor: kPrimaryColor,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(
-                          17,
-                        ),
-                      ),
-                    ),
-                    onPressed: () => Navigator.pushNamedAndRemoveUntil(
-                        context, '/sign-in', (route) => false),
-                    child: Text(
-                      'Get Started',
-                      style: whiteTextStyle.copyWith(
-                        fontSize: 18,
-                        fontWeight: medium,
-                      ),
-                    ),
-                  ),
+                  margintop: 50,
+                  marginbot: 80,
+                  onPress: () {
+                    Navigator.pushNamedAndRemoveUntil(
+                        context, '/sign-in', (route) => false);
+                  },
                 ),
               ],
             ),
