@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:madee_wat/shared/theme.dart';
+import 'package:madee_wat/ui/pages/home_page.dart';
 import 'package:madee_wat/ui/widgets/custom_bottom_navigation_item.dart';
 
 class MainPage extends StatefulWidget {
@@ -18,7 +19,7 @@ class _MainPageState extends State<MainPage> {
         width: double.infinity,
         height: 60,
         decoration: BoxDecoration(
-          color: kWhiteColor,
+          color: kWhiteColor.withOpacity(.8),
           borderRadius: BorderRadius.circular(defaultRadius + 1),
         ),
         child: Row(
@@ -29,15 +30,25 @@ class _MainPageState extends State<MainPage> {
               isSelected: true,
             ),
             CustomBottomNavigationItem(
-                imageUrl: 'assets/icon_booking.png', isSelected: false),
+              imageUrl: 'assets/icon_booking.png',
+              isSelected: false,
+            ),
             CustomBottomNavigationItem(
-                imageUrl: 'assets/icon_card.png', isSelected: false),
+              imageUrl: 'assets/icon_card.png',
+              isSelected: false,
+            ),
             CustomBottomNavigationItem(
-                imageUrl: 'assets/icon_settings.png', isSelected: false),
+              imageUrl: 'assets/icon_settings.png',
+              isSelected: false,
+            ),
           ],
         ),
       ),
     );
+  }
+
+  Widget buildContent() {
+    return HomePage();
   }
 
   @override
@@ -46,7 +57,7 @@ class _MainPageState extends State<MainPage> {
       backgroundColor: kBackgroundColor,
       body: Stack(
         children: [
-          Text('mainpage'),
+          buildContent(),
           customBottomNavigation(),
         ],
       ),
