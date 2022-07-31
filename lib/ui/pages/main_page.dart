@@ -15,7 +15,7 @@ class _MainPageState extends State<MainPage> {
     return Align(
       alignment: Alignment.bottomCenter,
       child: Container(
-        margin: EdgeInsets.only(bottom: 30, left: 24, right: 24),
+        margin: EdgeInsets.only(bottom: 20, left: 24, right: 24),
         width: double.infinity,
         height: 60,
         decoration: BoxDecoration(

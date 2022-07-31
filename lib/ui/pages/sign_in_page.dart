@@ -66,18 +66,28 @@ class _SignInPageState extends State<SignInPage> {
     return Container(
       child: Row(
         children: [
-          Text(
-            'Dont Have an Account? ',
-            style: blackTextStyle.copyWith(fontSize: 16),
-          ),
-          SizedBox(
-            width: 5,
-          ),
-          GestureDetector(
-            onTap: () => Navigator.pushNamed(context, '/sign-up'),
-            child: Text(
-              'Register',
-              style: redTextStyle.copyWith(fontSize: 16),
+          Expanded(
+            child: Row(
+              children: [
+                Text(
+                  'Dont Have an Account? ',
+                  style: blackTextStyle.copyWith(
+                    fontSize: 10,
+                    fontWeight: medium,
+                  ),
+                ),
+                SizedBox(
+                  width: 5,
+                ),
+                GestureDetector(
+                  onTap: () => Navigator.pushNamed(context, '/sign-up'),
+                  child: Text(
+                    'Register',
+                    style:
+                        redTextStyle.copyWith(fontSize: 10, fontWeight: medium),
+                  ),
+                ),
+              ],
             ),
           ),
         ],

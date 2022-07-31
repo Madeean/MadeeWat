@@ -73,7 +73,7 @@ class _BonusPageState extends State<BonusPage> {
             ],
           ),
           SizedBox(
-            height: 41,
+            height: 10,
           ),
           Text(
             'Balance',

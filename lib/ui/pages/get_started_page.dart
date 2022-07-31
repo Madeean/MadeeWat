@@ -19,6 +19,7 @@ class _GetStartedPageState extends State<GetStartedPage> {
             height: double.infinity,
             decoration: BoxDecoration(
               image: DecorationImage(
+                fit: BoxFit.cover,
                 image: AssetImage('assets/image_get_started.png'),
               ),
             ),

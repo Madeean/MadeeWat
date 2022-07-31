@@ -71,7 +71,7 @@ class _SignUpPageState extends State<SignUpPage> {
         children: [
           Text(
             'Have an Account? ',
-            style: blackTextStyle.copyWith(fontSize: 16),
+            style: blackTextStyle.copyWith(fontSize: 10),
           ),
           SizedBox(
             width: 5,
@@ -80,7 +80,7 @@ class _SignUpPageState extends State<SignUpPage> {
             onTap: () => Navigator.pushNamed(context, '/sign-in'),
             child: Text(
               'Login',
-              style: redTextStyle.copyWith(fontSize: 16),
+              style: redTextStyle.copyWith(fontSize: 10),
             ),
           ),
         ],
