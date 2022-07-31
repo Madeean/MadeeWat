@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:madee_wat/shared/theme.dart';
+import 'package:madee_wat/ui/pages/checkout_page.dart';
 import 'package:madee_wat/ui/widgets/custom_button.dart';
 import 'package:madee_wat/ui/widgets/seat.dart';
 
@@ -324,7 +325,10 @@ class _ChooseSetPageState extends State<ChooseSetPage> {
   checkoutButton() {
     return CustomButtom(
       title: "Continue to checkout",
-      onPress: () {},
+      onPress: () {
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => CheckoutPage()));
+      },
       margintop: 30,
       marginbot: 46,
     );
