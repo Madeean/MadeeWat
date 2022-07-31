@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:madee_wat/shared/theme.dart';
+import 'package:madee_wat/ui/pages/choose_seat_page.dart';
 import 'package:madee_wat/ui/widgets/custom_button.dart';
 import 'package:madee_wat/ui/widgets/interest_to_item.dart';
 import 'package:madee_wat/ui/widgets/photos_item.dart';
@@ -217,7 +218,15 @@ class _DetailPageState extends State<DetailPage> {
                     ],
                   ),
                 ),
-                CustomButtom(title: "Book Now", onPress: () {}, width: 170),
+                CustomButtom(
+                    title: "Book Now",
+                    onPress: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ChooseSetPage()));
+                    },
+                    width: 170),
               ],
             ),
           ),
