@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:madee_wat/models/user_model.dart';
 import 'package:madee_wat/services/auth_service.dart';
+import 'package:madee_wat/services/user_service.dart';
 
 part 'auth_state.dart';
 
@@ -43,6 +44,15 @@ class AuthCubit extends Cubit<AuthState> {
       emit(AuthLoading());
       await AuthService().SignOut();
       emit(AuthInitial());
+    } catch (e) {
+      emit(AuthFailed(e.toString()));
+    }
+  }
+
+  void getCurrentUser(String id) async {
+    try {
+      UserModel user = await UserService().getUserById(id);
+      emit(AuthSuccess(user));
     } catch (e) {
       emit(AuthFailed(e.toString()));
     }

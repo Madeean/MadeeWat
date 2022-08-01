@@ -23,7 +23,7 @@ class _SignInPageState extends State<SignInPage> {
         top: 30,
       ),
       child: Text(
-        'Join us and get\nyour next journey',
+        'Sign in with\nyour existing account',
         style: blackTextStyle.copyWith(
           fontSize: 24,
           fontWeight: semiBold,
@@ -102,8 +102,7 @@ class _SignInPageState extends State<SignInPage> {
       listener: (context, state) {
         // TODO: implement listener
         if (state is AuthSuccess) {
-          Navigator.pushNamedAndRemoveUntil(
-              context, '/bonus', (route) => false);
+          Navigator.pushNamedAndRemoveUntil(context, '/main', (route) => false);
         } else if (state is AuthFailed) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(

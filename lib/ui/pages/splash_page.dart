@@ -2,6 +2,8 @@ import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:madee_wat/cubit/auth_cubit.dart';
 import 'package:madee_wat/shared/theme.dart';
 import 'package:madee_wat/ui/pages/get_started_page.dart';
 
@@ -24,6 +26,7 @@ class _SplashPageState extends State<SplashPage> {
         Navigator.pushNamedAndRemoveUntil(
             context, '/get-started', (route) => false);
       } else {
+        context.read<AuthCubit>().getCurrentUser(user.uid);
         Navigator.pushNamedAndRemoveUntil(context, '/main', (route) => false);
       }
     });

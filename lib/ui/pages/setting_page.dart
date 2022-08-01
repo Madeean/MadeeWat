@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:madee_wat/cubit/auth_cubit.dart';
+import 'package:madee_wat/cubit/page_cubit.dart';
 import 'package:madee_wat/ui/widgets/custom_button.dart';
 
 import '../../shared/theme.dart';
@@ -20,6 +21,7 @@ class SettingPage extends StatelessWidget {
             ),
           );
         } else if (state is AuthInitial) {
+          context.read<PageCubit>().setPage(0);
           Navigator.pushNamedAndRemoveUntil(
               context, '/sign-in', (route) => false);
         }
