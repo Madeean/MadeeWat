@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:madee_wat/cubit/auth_cubit.dart';
 import 'package:madee_wat/shared/theme.dart';
 import 'package:madee_wat/ui/widgets/custom_textfield.dart';
 
@@ -12,6 +14,11 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
+  TextEditingController nameController = TextEditingController(text: '');
+  TextEditingController emailController = TextEditingController(text: '');
+  TextEditingController paswordController = TextEditingController(text: '');
+  TextEditingController hobbyController = TextEditingController(text: '');
+
   Container title() {
     return Container(
       padding: EdgeInsets.only(
@@ -41,24 +48,28 @@ class _SignUpPageState extends State<SignUpPage> {
       ),
       child: Column(
         children: [
-          CustomTextField(title: "Full Name", hintText: "your Full name"),
           CustomTextField(
-              title: "Email Address", hintText: "your Email Address"),
+            title: "Full Name",
+            hintText: "your Full name",
+            controller: nameController,
+          ),
+          CustomTextField(
+            title: "Email Address",
+            hintText: "your Email Address",
+            controller: emailController,
+          ),
           CustomTextField(
             title: "Password",
             hintText: "your Password",
             isObscure: true,
+            controller: paswordController,
           ),
-          CustomTextField(title: "Hobby", hintText: "your Hobby"),
-          CustomButtom(
-            margintop: 10,
-            marginbot: 20,
-            title: "Get Started",
-            onPress: () {
-              Navigator.pushNamedAndRemoveUntil(
-                  context, '/bonus', (route) => false);
-            },
+          CustomTextField(
+            title: "Hobby",
+            hintText: "your Hobby",
+            controller: hobbyController,
           ),
+          getStartedButton(),
           login(),
         ],
       ),
@@ -88,159 +99,44 @@ class _SignUpPageState extends State<SignUpPage> {
     );
   }
 
-  Widget nameInput() {
-    return Container(
-      margin: EdgeInsets.only(bottom: 20),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'Full Name',
-          ),
-          SizedBox(
-            height: 6,
-          ),
-          TextFormField(
-            cursorColor: kBlackColor,
-            decoration: InputDecoration(
-              hintText: "Your full name",
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(
-                  defaultRadius,
-                ),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(defaultRadius),
-                borderSide: BorderSide(color: kPrimaryColor),
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget emailInput() {
-    return Container(
-      margin: EdgeInsets.only(bottom: 20),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'Email Address',
-          ),
-          SizedBox(
-            height: 6,
-          ),
-          TextFormField(
-            cursorColor: kBlackColor,
-            decoration: InputDecoration(
-              hintText: "Your Email",
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(
-                  defaultRadius,
-                ),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(defaultRadius),
-                borderSide: BorderSide(color: kPrimaryColor),
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget HobbyInput() {
-    return Container(
-      margin: EdgeInsets.only(bottom: 30),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'Hobby',
-          ),
-          SizedBox(
-            height: 6,
-          ),
-          TextFormField(
-            cursorColor: kBlackColor,
-            decoration: InputDecoration(
-              hintText: "Your Hobby",
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(
-                  defaultRadius,
-                ),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(defaultRadius),
-                borderSide: BorderSide(color: kPrimaryColor),
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget passwordInput() {
-    return Container(
-      margin: EdgeInsets.only(bottom: 20),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'Password',
-          ),
-          SizedBox(
-            height: 6,
-          ),
-          TextFormField(
-            obscureText: true,
-            cursorColor: kBlackColor,
-            decoration: InputDecoration(
-              hintText: "Your Password",
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(
-                  defaultRadius,
-                ),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(defaultRadius),
-                borderSide: BorderSide(color: kPrimaryColor),
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
   Widget getStartedButton() {
-    return Container(
-      margin: EdgeInsets.only(bottom: 20),
-      width: double.infinity,
-      height: 55,
-      child: TextButton(
-        style: TextButton.styleFrom(
-          backgroundColor: kPrimaryColor,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(
-              defaultRadius,
+    return BlocConsumer<AuthCubit, AuthState>(
+      listener: (context, state) {
+        if (state is AuthSuccess) {
+          Navigator.pushNamedAndRemoveUntil(
+              context, '/bonus', (route) => false);
+        } else if (state is AuthFailed) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              backgroundColor: kRedColor,
+              content: Text(state.error),
             ),
-          ),
-        ),
-        onPressed: () => Navigator.pushNamedAndRemoveUntil(
-            context, '/bonus', (route) => false),
-        child: Text(
-          'Get Started',
-          style: whiteTextStyle.copyWith(
-            fontSize: 18,
-            fontWeight: medium,
-          ),
-        ),
-      ),
+          );
+        }
+
+        // TODO: implement listener
+      },
+      builder: (context, state) {
+        if (state is AuthLoading) {
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+
+        return CustomButtom(
+          margintop: 10,
+          marginbot: 20,
+          title: "Get Started",
+          onPress: () {
+            context.read<AuthCubit>().signUp(
+                  email: emailController.text,
+                  password: paswordController.text,
+                  name: nameController.text,
+                  hobby: hobbyController.text,
+                );
+          },
+        );
+      },
     );
   }
 

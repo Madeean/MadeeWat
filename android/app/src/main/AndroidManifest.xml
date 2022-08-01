@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.madee_wat">
+    package="com.madeean.madee_wat">
    <application
         android:label="madee_wat"
         android:name="${applicationName}"

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "191109586077",
+    "project_id": "madeewat-fd9e8",
+    "storage_bucket": "madeewat-fd9e8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:191109586077:android:b351e701267486ab7d0874",
+        "android_client_info": {
+          "package_name": "com.madeean.madee_wat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "191109586077-hulo9qu45avlbrl1t7ru9bause1h5pu6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAgVREJV3DTdlVgtjjjoo-kvPDjSi1p61w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "191109586077-hulo9qu45avlbrl1t7ru9bause1h5pu6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

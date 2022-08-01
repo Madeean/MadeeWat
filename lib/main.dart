@@ -1,5 +1,7 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:madee_wat/cubit/auth_cubit.dart';
 import 'package:madee_wat/cubit/page_cubit.dart';
 import 'package:madee_wat/ui/pages/bonus_page.dart';
 import 'package:madee_wat/ui/pages/get_started_page.dart';
@@ -9,7 +11,9 @@ import 'package:madee_wat/ui/pages/sign_up_page.dart';
 
 import 'ui/pages/splash_page.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(MyApp());
 }
 
@@ -26,6 +30,7 @@ class _MyAppState extends State<MyApp> {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) => PageCubit()),
+        BlocProvider(create: (context) => AuthCubit()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
