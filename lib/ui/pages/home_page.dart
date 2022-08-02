@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:madee_wat/cubit/auth_cubit.dart';
+import 'package:madee_wat/cubit/destinations_cubit.dart';
 import 'package:madee_wat/shared/theme.dart';
 import 'package:madee_wat/ui/widgets/destination_card.dart';
 import 'package:madee_wat/ui/widgets/destination_tile.dart';
+
+import '../../models/destinations_model.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -13,6 +16,12 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  @override
+  void initState() {
+    context.read<DestinationsCubit>().fetchDestinations();
+    super.initState();
+  }
+
   header() {
     return BlocBuilder<AuthCubit, AuthState>(
       builder: (context, state) {
@@ -67,50 +76,21 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  popularDestinations() {
+  popularDestinations(List<DestinationModel> destinations) {
     return Container(
       margin: EdgeInsets.only(top: 30),
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         child: Row(
-          children: const [
-            DestinationCard(
-              image: 'assets/image_destination1.png',
-              title: "Lake Ciliwung",
-              lokasi: "Tangerang",
-              rating: 4.8,
-            ),
-            DestinationCard(
-              image: 'assets/image_destination2.png',
-              title: "White House",
-              lokasi: "Spain",
-              rating: 4.7,
-            ),
-            DestinationCard(
-              image: 'assets/image_destination3.png',
-              title: "Hill Heiyo",
-              lokasi: "Monaco",
-              rating: 4.8,
-            ),
-            DestinationCard(
-              image: 'assets/image_destination4.png',
-              title: "Menarra",
-              lokasi: "Japan",
-              rating: 5.0,
-            ),
-            DestinationCard(
-              image: 'assets/image_destination5.png',
-              title: "Payung Teduh",
-              lokasi: "Singapore",
-              rating: 4.5,
-            ),
-          ],
+          children: destinations.map((DestinationModel destination) {
+            return DestinationCard(destination);
+          }).toList(),
         ),
       ),
     );
   }
 
-  newDestination() {
+  newDestination(List<DestinationModel> destinations) {
     return Container(
       margin: EdgeInsets.only(
           top: 30, left: defaultMargin, right: defaultMargin, bottom: 120),
@@ -124,35 +104,8 @@ class _HomePageState extends State<HomePage> {
               fontWeight: semiBold,
             ),
           ),
-          DestinationTile(
-            title: "Danau Beratan",
-            image: "assets/image_destination6.png",
-            lokasi: "Singaraja",
-            rating: 4.5,
-          ),
-          DestinationTile(
-            title: "Sydney Opera",
-            image: "assets/image_destination7.png",
-            lokasi: "Australia",
-            rating: 4.5,
-          ),
-          DestinationTile(
-            title: "Roma",
-            image: "assets/image_destination8.png",
-            lokasi: "Italy",
-            rating: 4.5,
-          ),
-          DestinationTile(
-            title: "Payung Teduh",
-            image: "assets/image_destination5.png",
-            lokasi: "Singapore",
-            rating: 4.5,
-          ),
-          DestinationTile(
-            title: "Hill Heiyo",
-            image: "assets/image_destination3.png",
-            lokasi: "Monaco",
-            rating: 4.5,
+          Column(
+            children: destinations.map((e) => DestinationTile(e)).toList(),
           ),
         ],
       ),
@@ -161,12 +114,32 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      children: [
-        header(),
-        popularDestinations(),
-        newDestination(),
-      ],
+    return BlocConsumer<DestinationsCubit, DestinationsState>(
+      listener: (context, state) {
+        // TODO: implement listener
+        if (state is DestinationsFailed) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              backgroundColor: kRedColor,
+              content: Text(state.error),
+            ),
+          );
+        }
+      },
+      builder: (context, state) {
+        if (state is DestinationsSuccess) {
+          return ListView(
+            children: [
+              header(),
+              popularDestinations(state.destinations),
+              newDestination(state.destinations),
+            ],
+          );
+        }
+        return Center(
+          child: CircularProgressIndicator(),
+        );
+      },
     );
   }
 }

@@ -1,18 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:madee_wat/models/destinations_model.dart';
 import 'package:madee_wat/shared/theme.dart';
 import 'package:madee_wat/ui/pages/detail_pages.dart';
 
 class DestinationTile extends StatelessWidget {
-  final String title;
-  final String lokasi;
-  final String image;
-  final double rating;
-  const DestinationTile({
+  final DestinationModel destinationModel;
+  const DestinationTile(
+    this.destinationModel, {
     Key? key,
-    required this.title,
-    required this.lokasi,
-    required this.image,
-    this.rating = 0.0,
   }) : super(key: key);
 
   @override
@@ -21,7 +16,7 @@ class DestinationTile extends StatelessWidget {
       onTap: () => Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => DetailPage(),
+          builder: (context) => DetailPage(destinationModel),
         ),
       ),
       child: Container(
@@ -41,7 +36,7 @@ class DestinationTile extends StatelessWidget {
                 borderRadius: BorderRadius.circular(18),
                 image: DecorationImage(
                   fit: BoxFit.cover,
-                  image: AssetImage('$image'),
+                  image: NetworkImage('${destinationModel.imageUrl}'),
                 ),
               ),
             ),
@@ -50,13 +45,13 @@ class DestinationTile extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    '$title',
+                    '${destinationModel.name}',
                     style: blackTextStyle.copyWith(
                         fontSize: 18, fontWeight: medium),
                   ),
                   SizedBox(width: 5),
                   Text(
-                    '$lokasi',
+                    '${destinationModel.city}',
                     style: greyTextStyle.copyWith(fontWeight: light),
                   ),
                 ],
@@ -77,7 +72,7 @@ class DestinationTile extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  '$rating',
+                  '${destinationModel.rating}',
                   style: blackTextStyle.copyWith(fontWeight: semiBold),
                 ),
               ],
