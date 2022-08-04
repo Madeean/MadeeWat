@@ -27,6 +27,16 @@ class DestinationModel extends Equatable {
       rating: json['rating'].toDouble(),
     );
   }
+  factory DestinationModel.fromJson1(String id, Map<String, dynamic> json) {
+    return DestinationModel(
+      id: id,
+      name: json['name'],
+      city: json['city'],
+      imageUrl: json['imageUrl'],
+      price: json['price'],
+      rating: json['rating'].toDouble(),
+    );
+  }
 
   Map<String, dynamic> toJson() => {
         'id': id,
