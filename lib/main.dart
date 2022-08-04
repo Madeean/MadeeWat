@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:madee_wat/cubit/auth_cubit.dart';
 import 'package:madee_wat/cubit/destinations_cubit.dart';
 import 'package:madee_wat/cubit/page_cubit.dart';
+import 'package:madee_wat/cubit/seat_cubit.dart';
 import 'package:madee_wat/ui/pages/bonus_page.dart';
 import 'package:madee_wat/ui/pages/get_started_page.dart';
 import 'package:madee_wat/ui/pages/main_page.dart';
@@ -33,6 +34,7 @@ class _MyAppState extends State<MyApp> {
         BlocProvider(create: (context) => PageCubit()),
         BlocProvider(create: (context) => AuthCubit()),
         BlocProvider(create: (context) => DestinationsCubit()),
+        BlocProvider(create: (context) => SeatCubit()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

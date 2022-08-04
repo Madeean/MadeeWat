@@ -231,7 +231,9 @@ class _DetailPageState extends State<DetailPage> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => ChooseSetPage()));
+                              builder: (context) => ChooseSetPage(
+                                    destinationModel: widget.destinationModel,
+                                  )));
                     },
                     width: 170),
               ],
