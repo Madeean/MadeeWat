@@ -24,4 +24,8 @@ class SeatCubit extends Cubit<List<String>> {
       return true;
     }
   }
+
+  void removeList() {
+    emit(List.empty(growable: true));
+  }
 }

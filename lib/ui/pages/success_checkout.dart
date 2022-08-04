@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:madee_wat/cubit/page_cubit.dart';
+import 'package:madee_wat/cubit/seat_cubit.dart';
 import 'package:madee_wat/shared/theme.dart';
 import 'package:madee_wat/ui/widgets/custom_button.dart';
 
@@ -44,6 +47,9 @@ class SuccessCheckoutPage extends StatelessWidget {
             CustomButtom(
               title: "MyBooking",
               onPress: () {
+                context.read<SeatCubit>().removeList();
+                context.read<PageCubit>().setPage(1);
+
                 Navigator.pushNamedAndRemoveUntil(
                     context, '/main', (route) => false);
               },

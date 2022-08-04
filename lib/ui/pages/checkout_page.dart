@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:madee_wat/cubit/auth_cubit.dart';
+import 'package:madee_wat/cubit/transaction_cubit.dart';
 import 'package:madee_wat/models/transaction_model.dart';
 import 'package:madee_wat/shared/theme.dart';
 import 'package:madee_wat/ui/pages/success_checkout.dart';
@@ -321,15 +322,42 @@ class CheckoutPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     paybutton() {
-      return CustomButtom(
-        title: "pay now",
-        onPress: () {
-          Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(builder: (context) => SuccessCheckoutPage()),
-              (route) => false);
+      return BlocConsumer<TransactionCubit, TransactionState>(
+        listener: (context, state) {
+          // TODO: implement listener
+          if (state is TransactionSuccess) {
+            Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(builder: (context) => SuccessCheckoutPage()),
+                (route) => false);
+          } else if (state is TransactionFailed) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                backgroundColor: kRedColor,
+                content: Text(state.error),
+              ),
+            );
+          }
         },
-        margintop: 30,
+        builder: (context, state) {
+          if (state is TransactionLoading) {
+            return Container(
+              alignment: Alignment.center,
+              margin: EdgeInsets.only(top: 30),
+              child: CircularProgressIndicator(),
+            );
+          }
+
+          return CustomButtom(
+            title: "pay now",
+            onPress: () {
+              context
+                  .read<TransactionCubit>()
+                  .createTransaction(transactionModel);
+            },
+            margintop: 30,
+          );
+        },
       );
     }
 
